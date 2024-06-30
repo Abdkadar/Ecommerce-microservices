@@ -1,0 +1,18 @@
+import com.example.demo.bean.Order;
+
+
+dialect "mvel"
+
+rule "Calculate discount for premium customers"
+    when
+        $order : Order(customerType == "Premium", totalAmount > 1000)
+    then
+        $order.applyDiscount(0.1); // 10% discount for premium customers
+end
+
+rule "Calculate discount for regular customers"
+    when
+        $order : Order(customerType == "Regular", totalAmount > 500)
+    then
+        $order.applyDiscount(0.05); // 5% discount for regular customers
+end
